@@ -75,6 +75,7 @@ void lineClear();
 void speedUp(int);
 void checkGameOver();
 void gameOver();
+void drawBlockLine(int, int, int);
 void pause();
 
 
@@ -474,23 +475,23 @@ void checkGameOver() {
 void gameOver() {
 	int x = 5;
 	int y = 5;
-	gotoxy(x, y + 0); for(int i=0;i<17;i++) printf("¢Ç");
-	gotoxy(x, y + 1); printf("¢Ç                              ¢Ç");
-	gotoxy(x, y + 2); printf("¢Ç  +-----------------------+   ¢Ç");
-	gotoxy(x, y + 3); printf("¢Ç  |  G A M E  O V E R..   |   ¢Ç");
-	gotoxy(x, y + 4); printf("¢Ç  +-----------------------+   ¢Ç");
-	gotoxy(x, y + 5); printf("¢Ç   YOUR SCORE: %6d         ¢Ç", score);
-	gotoxy(x, y + 6); printf("¢Ç                              ¢Ç");
-	gotoxy(x, y + 7); printf("¢Ç  Press any key to restart..  ¢Ç");
-	gotoxy(x, y + 8); printf("¢Ç                              ¢Ç");
-	gotoxy(x, y + 9); printf("¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç");
+	drawBlockLine(x, y, 17);
+	gotoxy(x, y + 1); printf("¢Ç                               ¢Ç");
+	gotoxy(x, y + 2); printf("¢Ç   +-----------------------+   ¢Ç");
+	gotoxy(x, y + 3); printf("¢Ç   |  G A M E  O V E R..   |   ¢Ç");
+	gotoxy(x, y + 4); printf("¢Ç   +-----------------------+   ¢Ç");
+	gotoxy(x, y + 5); printf("¢Ç    YOUR SCORE: %6d         ¢Ç", score);
+	gotoxy(x, y + 6); printf("¢Ç                               ¢Ç");
+	gotoxy(x, y + 7); printf("¢Ç   Press any key to restart..  ¢Ç");
+	gotoxy(x, y + 8); printf("¢Ç                               ¢Ç");
+	drawBlockLine(x, y + 9, 17);
 	last_score = score;
 
 	if (score > best_score) {
 		FILE* file;
 		fopen_s(&file, "score.dat", "wt");
 
-		gotoxy(x, y + 6); printf("¢Ç  ¡Ú¡Ú¡Ú BEST SCORE! ¡Ú¡Ú¡Ú   ¢Ç  ");
+		gotoxy(x, y + 6); printf("¢Ç   ¡Ú ¡Ú ¡Ú  BEST SCORE! ¡Ú ¡Ú ¡Ú    ¢Ç ");
 
 		if (file == 0) {
 			gotoxy(0, 0);
@@ -504,6 +505,14 @@ void gameOver() {
 	Sleep(1000);
 	while (_kbhit()) key = _getch();
 	key = _getch();
+}
+
+void drawBlockLine(int start_x, int start_y, int count) {
+	for (int i = 0; i < count; i++) {
+		gotoxy(start_x + i, start_y);
+		printf("¢Ç  ");
+	}
+	
 }
 
 
